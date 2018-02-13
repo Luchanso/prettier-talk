@@ -9,14 +9,14 @@ import {
   Quote,
   Slide,
   Text,
-  Magic,
+  Notes,
 } from 'spectacle';
 import styled from 'styled-components';
 import createTheme from 'spectacle/lib/themes/default';
 
 import TechnologyList from './TechnologyList';
 import Col from './Col';
-import Container from './Container';
+// import Container from './Container';
 import iconJs from './tools_js.svg';
 import iconCss from './tools_css.svg';
 import iconGraphQl from './tools_gql.svg';
@@ -58,7 +58,7 @@ const Presentation = () => (
         Prettier
       </Heading>
       <Text margin="10px 0 0" textColor="tertiary" size={1} fit bold>
-        Инструмент который делает жизнь лучше
+        Инструмент для форматирования кода
       </Text>
     </Slide>
     <Slide transition={['fade']} bgColor="secondary">
@@ -76,24 +76,13 @@ const Presentation = () => (
       <Heading size={6} textColor="secondary" caps>
         Область применения
       </Heading>
-      {/* <List textColor="tertiary">
-        <ListItem>ES2017, TS, JSX, JSON, Flow, Vue</ListItem>
-        <ListItem>CSS3+, SCSS, Less, styled-components</ListItem>
-        <ListItem>GrapQL, GraphQL Scheme</ListItem>
-        <ListItem>Markdown</ListItem>
-      </List> */}
       <RowBlock>
-        <TechnologyList
-          textColor="secondary"
-          img={iconJs}
-          list={['ES2017', 'TypeScript', 'JSX', 'JSON', 'Flow', 'Vue']}
-        />
-        <TechnologyList
-          textColor="secondary"
-          img={iconCss}
-          list={['CSS3+', 'SCSS', 'Less', 'styled-components 💅']}
-        />
-        <Container direction="column">
+        <Col width="50%">
+          <TechnologyList
+            textColor="secondary"
+            img={iconJs}
+            list={['ES2017', 'TypeScript', 'JSX', 'JSON', 'Flow', 'Vue']}
+          />
           <TechnologyList
             textColor="secondary"
             img={iconGraphQl}
@@ -104,19 +93,34 @@ const Presentation = () => (
             img={iconMd}
             list={['CommonMark', 'Github Flavored Markdown']}
           />
-        </Container>
-        <TechnologyList
-          textColor="secondary"
-          img={iconWip}
-          list={['Python', 'PHP', 'Swift', 'Java', 'PostgreSQL']}
-          WIP
-        />
+        </Col>
+        <Col width="50%">
+          <TechnologyList
+            textColor="secondary"
+            img={iconCss}
+            list={['CSS3+', 'SCSS', 'Less', 'styled-components 💅']}
+          />
+          <TechnologyList
+            textColor="secondary"
+            img={iconWip}
+            list={['Python', 'PHP', 'Swift', 'Java', 'PostgreSQL']}
+            WIP
+          />
+        </Col>
       </RowBlock>
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
-      <Heading size={6} textColor="primary">
+      <Heading size={1} textColor="primary" caps>
         Редакторы
       </Heading>
+      <Text transition={['fade']}>Все популярные</Text>
+      <Notes>
+        <h4>Slide notes</h4>
+        <ol>
+          <li>First note</li>
+          <li>Second note</li>
+        </ol>
+      </Notes>
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
       <BlockQuote>
