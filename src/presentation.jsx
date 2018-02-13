@@ -9,7 +9,9 @@ import {
   Quote,
   Slide,
   Text,
-  Notes,
+  Appear,
+  Image,
+  CodePane,
 } from 'spectacle';
 import styled from 'styled-components';
 import createTheme from 'spectacle/lib/themes/default';
@@ -25,6 +27,21 @@ import iconWip from './tools_wip.svg';
 
 // eslint-disable-next-line
 require('normalize.css');
+
+let matrix = [
+  1, 2, 3,
+  4, 5, 6
+];
+
+const exampleMatrix = `// prettier-ignore
+const matrix = [
+  1, 2, 3,
+  4, 5, 6,
+  7, 8, 9
+];
+
+const matrix = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // without-ignore
+`;
 
 const theme = createTheme(
   {
@@ -48,12 +65,12 @@ const RowBlock = styled.div`
 
 const Presentation = () => (
   <Deck
-    transition={['zoom', 'slide']}
+    transition={['fade']}
     transitionDuration={200}
     progress="bar"
     theme={theme}
   >
-    <Slide transition={['zoom']} bgColor="secondary">
+    <Slide transition={['fade']} bgColor="secondary">
       <Heading size={1} fit caps lineHeight={1} textColor="primary">
         Prettier
       </Heading>
@@ -110,23 +127,57 @@ const Presentation = () => (
       </RowBlock>
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
-      <Heading size={1} textColor="primary" caps>
+      <Heading size={6} textColor="primary" caps>
         Редакторы
       </Heading>
-      <Text transition={['fade']}>Все популярные</Text>
-      <Notes>
-        <h4>Slide notes</h4>
-        <ol>
-          <li>First note</li>
-          <li>Second note</li>
-        </ol>
-      </Notes>
+      <Appear fid="1">
+        <Text>Все популярные</Text>
+      </Appear>
+    </Slide>
+    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Heading size={6} textColor="primary" caps>
+        Пример arui-feather
+      </Heading>
+      <Image src="" />
+      <Text>Tyt bydet kartinka</Text>
+    </Slide>
+    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Heading size={6} textColor="primary" caps>
+        Пример конфигурации
+      </Heading>
+      <Image src="" />
+      <Text>Tyt bydet code s configuraciey</Text>
+    </Slide>
+    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Heading size={6} textColor="primary" caps>
+        prettier-ignore
+      </Heading>
+      <CodePane
+        textSize={24}
+        lang="javascript"
+        theme="light"
+        source={exampleMatrix}
+      />
+    </Slide>
+    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Heading size={6} textColor="primary" caps>
+        Минусы
+      </Heading>
+      <Image src="" />
+      <Text>
+        Тут будет картинка с описанием минусов (про разную длину импортов)
+      </Text>
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
       <BlockQuote>
-        <Quote>Prettier самое лучше в моей жизни, что я встречал</Quote>
+        <Quote textSize={48}>
+          Prettier - форматирование кода, которое мы заслужили
+        </Quote>
         <Cite>Jason Statham</Cite>
       </BlockQuote>
+    </Slide>
+    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Text>Ссылки</Text>
     </Slide>
   </Deck>
 );

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Presentation from './presentation';
+import Presentation from './Presentation';
 import registerServiceWorker from './registerServiceWorker';
 
 // eslint-disable-next-line
