@@ -27,22 +27,35 @@ import iconWip from './tools_wip.svg';
 import makeupGun from './makeup.gif';
 import badCode from './bad-code.png';
 import danResist from './danResist.png';
+import commentsProblem from './commentsProblem.png';
+import mixedOperators from './mixed-operators.png';
+import badPrettier1 from './bad-prettier-1.jpg';
+import badPrettier2 from './bad-prettier-2.jpg';
+import goodPrettier from './good-prettier.png';
 
 // eslint-disable-next-line
 require('normalize.css');
 
 const exampleMatrix = `// prettier-ignore
 const matrix = [
-  1, 2, 3,
-  4, 5, 6,
-  7, 8, 9
+  1, 2, 3,      1,      4, 9, 1,  1, 6, 7,
+  4,    5,    0,  2,    5,        2,
+  6,    8,   9,    3,   6, 3, 2,  3,
+  6,    8,  9,      3,  6,        4,
+  6, 7, 8,  9,      3,  6, 7, 8,  5,
 ];
 
-const matrix = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // without-ignore
-`;
+// without-ignore
+const matrix = [
+  1,
+  2,
+  3,
+  ...
+  5
+];`;
 
 const configSource = `module.exports = {
-  printWidth: 100,
+  printWidth: 120,
   semi: true,
   singleQuote: true,
   bracketSpacing: true,
@@ -144,8 +157,8 @@ const Presentation = () => (
         Пример
       </Heading>
       <Text>
-        Тут будет пример плохого кода и хорошего
-        про // eslind-disable-next-line max-len
+        Тут будет пример плохого кода и хорошего про // eslind-disable-next-line
+        max-len
       </Text>
     </Slide>
     <Slide transition={['fade']} bgColor="secondary">
@@ -165,35 +178,82 @@ const Presentation = () => (
         Конфигурация
       </Heading>
       <Text>.prettierrc.js</Text>
-      <CodePane
-        style={{ fontSize: '50px' }}
-        lang="js"
-        theme="light"
-        source={configSource}
-      />
+      <CodePane textSize={25} lang="js" theme="light" source={configSource} />
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
       <Image src={danResist} />
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
       <Heading size={6} textColor="primary" caps>
+        Попытка решить проблему
+      </Heading>
+      <Text textSize={30}>
+        <span role="img">
+          Code{' '}
+          <span role="img" aria-label="arrow left to right">
+            ➡️
+          </span>{' '}
+          prettier{' '}
+          <span role="img" aria-label="arrow left to right">
+            ➡️
+          </span>{' '}
+          eslint --fix{' '}
+          <span role="img" aria-label="arrow left to right">
+            ➡️
+          </span>{' '}
+          Formatted Code{' '}
+          <span role="img" aria-label="stars">
+            ✨
+          </span>
+        </span>
+      </Text>
+    </Slide>
+    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Heading size={6} textColor="primary" caps>
+        Не всё так просто
+      </Heading>
+      <Image src={commentsProblem} margin="0 0 50px 0" />
+      <Image src={mixedOperators} />
+    </Slide>
+    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Heading size={6} textColor="primary" caps>
+        Prettier{' '}
+        <strike>
+          гов...{' '}
+          <span role="img" aria-label="crap">
+            💩
+          </span>
+        </strike>{' '}
+        плохо форматирует
+      </Heading>
+      <RowBlock>
+        <Col width="50%">
+          <Image src={badPrettier1} />
+        </Col>
+        <Col width="50%">
+          <Image src={badPrettier2} />
+        </Col>
+      </RowBlock>
+    </Slide>
+    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Heading size={6} textColor="primary" caps>
+        Prettier хорошо форматирует{' '}
+        <span role="img" aria-label="unicorne">
+          🦄
+        </span>
+      </Heading>
+      <Image src={goodPrettier} />
+    </Slide>
+    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Heading size={6} textColor="primary" caps>
         prettier-ignore
       </Heading>
       <CodePane
-        textSize={24}
+        textSize={23}
         lang="javascript"
         theme="light"
         source={exampleMatrix}
       />
-    </Slide>
-    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
-      <Heading size={6} textColor="primary" caps>
-        Минусы
-      </Heading>
-      <Image src="" />
-      <Text>
-        Тут будет картинка с описанием минусов (про разную длину импортов)
-      </Text>
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
       <BlockQuote>
@@ -205,6 +265,8 @@ const Presentation = () => (
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
       <Text>Ссылки</Text>
+      <Text>https://prettier.io</Text>
+      <Text></Text>
     </Slide>
   </Deck>
 );
