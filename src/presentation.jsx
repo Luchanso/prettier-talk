@@ -24,14 +24,12 @@ import iconCss from './tools_css.svg';
 import iconGraphQl from './tools_gql.svg';
 import iconMd from './tools_md.svg';
 import iconWip from './tools_wip.svg';
+import makeupGun from './makeup.gif';
+import badCode from './bad-code.png';
+import danResist from './danResist.png';
 
 // eslint-disable-next-line
 require('normalize.css');
-
-let matrix = [
-  1, 2, 3,
-  4, 5, 6
-];
 
 const exampleMatrix = `// prettier-ignore
 const matrix = [
@@ -42,6 +40,14 @@ const matrix = [
 
 const matrix = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // without-ignore
 `;
+
+const configSource = `module.exports = {
+  printWidth: 100,
+  semi: true,
+  singleQuote: true,
+  bracketSpacing: true,
+  trailingComma: 'none'
+};`;
 
 const theme = createTheme(
   {
@@ -86,7 +92,6 @@ const Presentation = () => (
         <ListItem>Единый стиль</ListItem>
         <ListItem>Любовь к прекрасному</ListItem>
         <ListItem>Ускорение разработки</ListItem>
-        <ListItem>Умеренное форматирование кода</ListItem>
       </List>
     </Slide>
     <Slide transition={['fade']} bgColor="primary">
@@ -136,17 +141,39 @@ const Presentation = () => (
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
       <Heading size={6} textColor="primary" caps>
-        Пример arui-feather
+        Пример
       </Heading>
-      <Image src="" />
-      <Text>Tyt bydet kartinka</Text>
+      <Text>
+        Тут будет пример плохого кода и хорошего
+        про // eslind-disable-next-line max-len
+      </Text>
+    </Slide>
+    <Slide transition={['fade']} bgColor="secondary">
+      <Heading size={6} textColor="primary" caps>
+        На практике
+      </Heading>
+      <Image src={makeupGun} width="100vh" />
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
       <Heading size={6} textColor="primary" caps>
-        Пример конфигурации
+        ARUI-FEATER
       </Heading>
-      <Image src="" />
-      <Text>Tyt bydet code s configuraciey</Text>
+      <Image src={badCode} />
+    </Slide>
+    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Heading size={6} textColor="primary" caps>
+        Конфигурация
+      </Heading>
+      <Text>.prettierrc.js</Text>
+      <CodePane
+        style={{ fontSize: '50px' }}
+        lang="js"
+        theme="light"
+        source={configSource}
+      />
+    </Slide>
+    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Image src={danResist} />
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
       <Heading size={6} textColor="primary" caps>
