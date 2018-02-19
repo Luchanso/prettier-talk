@@ -12,6 +12,8 @@ import {
   Appear,
   Image,
   CodePane,
+  Link,
+  Notes,
 } from 'spectacle';
 import styled from 'styled-components';
 import createTheme from 'spectacle/lib/themes/default';
@@ -53,6 +55,21 @@ const matrix = [
   ...
   5
 ];`;
+
+const exampleCode1 = `test('should parse nds from \`В Т.Ч. ндс 18%, 232\` cases', () => {
+  expect(getNdsInfo('В Т.Ч. ндс 18%, 232')).toEqual(
+      { prepend: '', ndsString: 'В Т.Ч. ндс 18%, 232', percentString: '18%', sumString: '232', append: '', mode: 2 }); // eslint-disable-line max-len
+});`;
+const exampleCode2 = `test('should parse nds from \`В Т.Ч. ндс 18%, 232\` cases', () => {
+  expect(getNdsInfo('В Т.Ч. ндс 18%, 232')).toEqual({
+      prepend: '',
+      ndsString: 'В Т.Ч. ндс 18%, 232',
+      percentString: '18%',
+      sumString: '232',
+      append: '',
+      mode: 2
+  });
+});`;
 
 const configSource = `module.exports = {
   printWidth: 120,
@@ -156,10 +173,30 @@ const Presentation = () => (
       <Heading size={6} textColor="primary" caps>
         Пример
       </Heading>
-      <Text>
-        Тут будет пример плохого кода и хорошего про // eslind-disable-next-line
-        max-len
-      </Text>
+      <Text>eslint-disable-line max-len</Text>
+      <CodePane
+        margin="0 0 50px 0"
+        textSize={12}
+        lang="js"
+        theme="light"
+        source={exampleCode1}
+        style={{ width: 1100, maxWidth: 1100 }}
+      />
+      <CodePane textSize={23} lang="js" theme="light" source={exampleCode2} />
+      <Notes>
+        <Heading size={3} textColor="secondary">
+          Prettier vs eslint
+        </Heading>
+        <ol>
+          <li>
+            max-len, no-mixed-spaces-and-tabs, keyword-spacing, comma-style...
+          </li>
+          <li>
+            no-unused-vars, no-extra-bind, no-implicit-globals,
+            prefer-promise-reject-errors...
+          </li>
+        </ol>
+      </Notes>
     </Slide>
     <Slide transition={['fade']} bgColor="secondary">
       <Heading size={6} textColor="primary" caps>
@@ -168,6 +205,9 @@ const Presentation = () => (
       <Image src={makeupGun} width="100vh" />
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Notes>
+        <Text textColor="secondary">Ну наверное можно сконфигурировать</Text>
+      </Notes>
       <Heading size={6} textColor="primary" caps>
         ARUI-FEATER
       </Heading>
@@ -181,9 +221,17 @@ const Presentation = () => (
       <CodePane textSize={25} lang="js" theme="light" source={configSource} />
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Notes>
+        <Text textColor="secondary">
+          Ну как же так? У нас же уже есть правила и менять их в корне не
+        </Text>
+      </Notes>
       <Image src={danResist} />
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Notes>
+        <Text textColor="secondary">Хитрая идея</Text>
+      </Notes>
       <Heading size={6} textColor="primary" caps>
         Попытка решить проблему
       </Heading>
@@ -209,6 +257,15 @@ const Presentation = () => (
       </Text>
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Notes>
+        <ol>
+          <li>Комментарии могут быть неправильно перенесены</li>
+          <li>
+            Есть правила которые линтер не может поправить (смешивание
+            математических операторов)
+          </li>
+        </ol>
+      </Notes>
       <Heading size={6} textColor="primary" caps>
         Не всё так просто
       </Heading>
@@ -216,6 +273,12 @@ const Presentation = () => (
       <Image src={mixedOperators} />
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Notes>
+        <Text textColor="secondary">
+          Разрабы сразу бегут в сендбокс доказывать, что претиер ужасен и
+          присылают мне шакальные картинки :D
+        </Text>
+      </Notes>
       <Heading size={6} textColor="primary" caps>
         Prettier{' '}
         <strike>
@@ -236,6 +299,12 @@ const Presentation = () => (
       </RowBlock>
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Notes>
+        <Text textColor="secondary">
+          Если prettier плохо форматирует, значит с вашим кодом что - то не
+          ладное
+        </Text>
+      </Notes>
       <Heading size={6} textColor="primary" caps>
         Prettier хорошо форматирует{' '}
         <span role="img" aria-label="unicorne">
@@ -264,9 +333,17 @@ const Presentation = () => (
       </BlockQuote>
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
-      <Text>Ссылки</Text>
-      <Text>https://prettier.io</Text>
-      <Text></Text>
+      <Text>Спасибо за внимание</Text>
+      <Text>
+        <Link href="https://prettier.io" target="_blank">
+          prettier.io
+        </Link>
+      </Text>
+      <Text>
+        <Link href="https://prettier.io" target="_blank">
+          ARUI Feather PR
+        </Link>
+      </Text>
     </Slide>
   </Deck>
 );
