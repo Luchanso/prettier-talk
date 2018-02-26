@@ -176,13 +176,11 @@ const Presentation = () => (
       <Text>eslint-disable-line max-len</Text>
       <CodePane
         margin="0 0 50px 0"
-        textSize={12}
+        textSize={23}
         lang="js"
         theme="light"
         source={exampleCode1}
-        style={{ width: 1100, maxWidth: 1100 }}
       />
-      <CodePane textSize={23} lang="js" theme="light" source={exampleCode2} />
       <Notes>
         <Heading size={3} textColor="secondary">
           Prettier vs eslint
@@ -197,6 +195,13 @@ const Presentation = () => (
           </li>
         </ol>
       </Notes>
+    </Slide>
+    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Heading size={6} textColor="primary" caps>
+        Пример
+      </Heading>
+      <Text>eslint-disable-line max-len</Text>
+      <CodePane textSize={23} lang="js" theme="light" source={exampleCode2} />
     </Slide>
     <Slide transition={['fade']} bgColor="secondary">
       <Heading size={6} textColor="primary" caps>
