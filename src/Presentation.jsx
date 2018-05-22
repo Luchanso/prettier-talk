@@ -9,10 +9,8 @@ import {
   Quote,
   Slide,
   Text,
-  Appear,
   Image,
   CodePane,
-  Link,
   Notes,
 } from 'spectacle';
 import styled from 'styled-components';
@@ -29,11 +27,9 @@ import iconWip from './tools_wip.svg';
 import makeupGun from './makeup.gif';
 import badCode from './bad-code.png';
 import danResist from './danResist.png';
-import commentsProblem from './commentsProblem.png';
-import mixedOperators from './mixed-operators.png';
-import badPrettier1 from './bad-prettier-1.jpg';
-import badPrettier2 from './bad-prettier-2.jpg';
 import goodPrettier from './good-prettier.png';
+
+import './presentation.css';
 
 // eslint-disable-next-line
 require('normalize.css');
@@ -58,7 +54,8 @@ const matrix = [
 
 const exampleCode1 = `test('should parse nds from \`В Т.Ч. ндс 18%, 232\` cases', () => {
   expect(getNdsInfo('В Т.Ч. ндс 18%, 232')).toEqual(
-      { prepend: '', ndsString: 'В Т.Ч. ндс 18%, 232', percentString: '18%', sumString: '232', append: '', mode: 2 }); // eslint-disable-line max-len
+      // eslint-disable-next-line max-len
+      { prepend: '', ndsString: 'В Т.Ч. ндс 18%, 232', percentString: '18%', sumString: '232', append: '', mode: 2 });
 });`;
 const exampleCode2 = `test('should parse nds from \`В Т.Ч. ндс 18%, 232\` cases', () => {
   expect(getNdsInfo('В Т.Ч. ндс 18%, 232')).toEqual({
@@ -78,6 +75,52 @@ const configSource = `module.exports = {
   bracketSpacing: true,
   trailingComma: 'none'
 };`;
+
+const exampleBadPrettier1 = `let foo = a => a
+  ? convert(resume(dispatch))(favorites)
+  : rollback(resume(dispatch))
+`;
+const exampleBadPrettier2 = `
+let foo = a =>
+  a ? convert(resume(dispatch))(favorites) : rollback(resume(dispatch))
+`;
+
+const exampleProblem1 = `
+function createPayment() { // My favorite comment style
+  fetch(CREATE_PAYMENT_URL); // Second comment
+}
+`;
+
+const exampleProblem2 = `
+function totalMoney() {
+  return ((income * tax) - credits + debits);
+}
+`;
+
+const exampleProblem3 = `
+function createPayment() {
+  // My favorite comment style
+  fetch(CREATE_PAYMENT_URL); // Second comment
+}
+`;
+
+const exampleProblem4 = `
+function totalMoney() {
+  return income * tax - credits + debits;
+}
+`;
+
+const solutionProblem = `
+> npm install --save prettier eslint-plugin-prettier
+
+// eslintrc.json
+{
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
+`;
 
 const theme = createTheme(
   {
@@ -155,7 +198,15 @@ const Presentation = () => (
           <TechnologyList
             textColor="secondary"
             img={iconWip}
-            list={['Python', 'PHP', 'Swift', 'Java', 'PostgreSQL']}
+            list={[
+              'Swift',
+              'Elm',
+              'Ruby',
+              'Python',
+              'PHP',
+              'Java',
+              'PostgreSQL',
+            ]}
             WIP
           />
         </Col>
@@ -163,18 +214,11 @@ const Presentation = () => (
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
       <Heading size={6} textColor="primary" caps>
-        Редакторы
-      </Heading>
-      <Appear fid="1">
-        <Text>Все популярные</Text>
-      </Appear>
-    </Slide>
-    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
-      <Heading size={6} textColor="primary" caps>
         Пример
       </Heading>
       <Text>eslint-disable-line max-len</Text>
       <CodePane
+        className="bad-code"
         margin="0 0 50px 0"
         textSize={23}
         lang="js"
@@ -208,6 +252,9 @@ const Presentation = () => (
         На практике
       </Heading>
       <Image src={makeupGun} width="100vh" />
+      <Text textSize="1.66rem" textColor="#d2d2d2">
+        10 сезон 2 серия
+      </Text>
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
       <Notes>
@@ -229,6 +276,7 @@ const Presentation = () => (
       <Notes>
         <Text textColor="secondary">
           Ну как же так? У нас же уже есть правила и менять их в корне не
+          собираемся
         </Text>
       </Notes>
       <Image src={danResist} />
@@ -274,14 +322,65 @@ const Presentation = () => (
       <Heading size={6} textColor="primary" caps>
         Не всё так просто
       </Heading>
-      <Image src={commentsProblem} margin="0 0 50px 0" />
-      <Image src={mixedOperators} />
+      <CodePane
+        textSize={20}
+        lang="javascript"
+        theme="light"
+        source={exampleProblem1}
+      />
+      <CodePane
+        textSize={20}
+        lang="javascript"
+        theme="light"
+        source={exampleProblem3}
+      />
+      {/* <Image src={commentsProblem} margin="0 0 50px 0" />
+      <Image src={mixedOperators} /> */}
+    </Slide>
+    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Notes>
+        <ol>
+          <li>Комментарии могут быть неправильно перенесены</li>
+          <li>
+            Есть правила которые линтер не может поправить (смешивание
+            математических операторов)
+          </li>
+        </ol>
+      </Notes>
+      <Heading size={6} textColor="primary" caps>
+        Не всё так просто
+      </Heading>
+      <CodePane
+        textSize={20}
+        lang="javascript"
+        theme="light"
+        source={exampleProblem2}
+      />
+      <CodePane
+        textSize={20}
+        lang="javascript"
+        theme="light"
+        source={exampleProblem4}
+      />
+      {/* <Image src={commentsProblem} margin="0 0 50px 0" />
+      <Image src={mixedOperators} /> */}
+    </Slide>
+    <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+      <Heading size={6} textColor="primary" caps>
+        Решение
+      </Heading>
+      <CodePane
+        textSize={20}
+        lang="javascript"
+        theme="light"
+        source={solutionProblem}
+      />
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
       <Notes>
         <Text textColor="secondary">
           Разрабы сразу бегут в сендбокс доказывать, что претиер ужасен и
-          присылают мне шакальные картинки :D
+          присылают мне скриншоты :D
         </Text>
       </Notes>
       <Heading size={6} textColor="primary" caps>
@@ -295,12 +394,18 @@ const Presentation = () => (
         плохо форматирует
       </Heading>
       <RowBlock>
-        <Col width="50%">
-          <Image src={badPrettier1} />
-        </Col>
-        <Col width="50%">
-          <Image src={badPrettier2} />
-        </Col>
+        <CodePane
+          textSize={20}
+          lang="javascript"
+          theme="light"
+          source={exampleBadPrettier1}
+        />
+        <CodePane
+          textSize={20}
+          lang="javascript"
+          theme="light"
+          source={exampleBadPrettier2}
+        />
       </RowBlock>
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
@@ -332,22 +437,20 @@ const Presentation = () => (
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
       <BlockQuote>
         <Quote textSize={48}>
-          Prettier - форматирование кода, которое мы заслужили
+          Prettier - форматирование, которое мы заслужили
         </Quote>
         <Cite>Jason Statham</Cite>
       </BlockQuote>
     </Slide>
     <Slide transition={['fade']} bgColor="secondary" textColor="primary">
-      <Text>Спасибо за внимание</Text>
-      <Text>
-        <Link href="https://prettier.io" target="_blank">
-          prettier.io
-        </Link>
+      <Heading size={5} textColor="primary" caps>
+        Спасибо за внимание
+      </Heading>
+      <Text margin="50px 20px 20px 20px" textColor="#1da1f2">
+        twitter.com/luchanso
       </Text>
-      <Text>
-        <Link href="https://prettier.io" target="_blank">
-          ARUI Feather PR
-        </Link>
+      <Text margin={20} textColor="#ef3124">
+        hr.alfabank.ru
       </Text>
     </Slide>
   </Deck>

@@ -4,14 +4,17 @@
   "private": true,
   "dependencies": {
     "babel-eslint": "^8.2.1",
+    "gh-pages": "^1.1.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "spectacle": "^4.0.5",
+    "spectacle": "4.2.3",
     "spectacle-scripts": "2.0.0",
     "styled-components": "^3.1.6"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
